@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Page 02</title>
+  <link rel="stylesheet" href="styles02.css">
+</head>
+<body>
+
+  <!-- PARTE A: Panel de sliders con íconos SVG -->
+  <div class="volume-panel">
+    <div class="volume-header">
+      <span></span>
+      <div class="header-icons">
+        <!-- Iconos decorativos SVG -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="5" /><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24"><path d="M12 2l3 7h-6l3-7zm0 3l-9 16h18L12 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24"><path d="M17 4h-10v2h10v-2zm0 4h-10v10h10v-10zm-2 8h-6v-6h6v6z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24"><path d="M8 5v14l-6-7 6-7zm8 0v14l6-7-6-7z"/></svg>
+         </div>
+    </div>
+
+    <div class="volume-control">
+      <label>Media volume</label>
+      <div class="slider-wrapper">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M7 9v6h4l5 5V4l-5 5H7z"/></svg>
+        <input type="range" min="0" max="100" value="30">
+      </div>
+    </div>
+
+    <div class="volume-control">
+      <label>Alarm volume</label>
+      <div class="slider-wrapper">
+        <input type="range" min="0" max="100" value="50">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M12 4a8 8 0 1 1 0 16a8 8 0 0 1 0-16m0 2a6 6 0 1 0 0 12a6 6 0 0 0 0-12zm1 3v4.27l3.1 1.86l-.5.84L11 12V9z"/></svg>
+
+        <svg class="icon-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M12 1a11 11 0 1 0 0 22a11 11 0 0 0 0-22zM1 12a11 11 0 1 1 22 0a11 11 0 0 1-22 0z"/></svg>
+      </div>
+    </div>
+
+    <div class="volume-control">
+      <label>Icon click callback</label>
+      <div class="slider-wrapper">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M10 2a8 8 0 0 1 6.32 12.906l5.387 5.387l-1.414 1.414l-5.387-5.387A8 8 0 1 1 10 2zm0 2a6 6 0 1 0 0 12a6 6 0 0 0 0-12z"/></svg>
+        <input type="range" min="0" max="100" value="40">
+        <svg class="icon-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M10 2a8 8 0 0 1 6.32 12.906l5.387 5.387l-1.414 1.414l-5.387-5.387A8 8 0 1 1 10 2zm0 2a6 6 0 1 0 0 12a6 6 0 0 0 0-12z"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="color-display" id="colorBox"></div>
+    <div class="sliders">
+      <div class="slider-group">
+        <label>R</label>
+        <input type="range" id="rRange" min="0" max="255" value="80">
+        <input type="number" id="rValue" min="0" max="255" value="80">
+      </div>
+      <div class="slider-group">
+        <label>G</label>
+        <input type="range" id="gRange" min="0" max="255" value="165">
+        <input type="number" id="gValue" min="0" max="255" value="165">
+      </div>
+      <div class="slider-group">
+        <label>B</label>
+        <input type="range" id="bRange" min="0" max="255" value="92">
+        <input type="number" id="bValue" min="0" max="255" value="92">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const rRange = document.getElementById('rRange');
+    const gRange = document.getElementById('gRange');
+    const bRange = document.getElementById('bRange');
+    const rValue = document.getElementById('rValue');
+    const gValue = document.getElementById('gValue');
+    const bValue = document.getElementById('bValue');
+    const colorBox = document.getElementById('colorBox');
+
+    function updateColor() {
+      const r = parseInt(rRange.value);
+      const g = parseInt(gRange.value);
+      const b = parseInt(bRange.value);
+      colorBox.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+      rValue.value = r;
+      gValue.value = g;
+      bValue.value = b;
+    }
+
+    [rRange, gRange, bRange].forEach(slider => slider.addEventListener('input', updateColor));
+    [rValue, gValue, bValue].forEach(input => {
+      input.addEventListener('input', () => {
+        rRange.value = rValue.value;
+        gRange.value = gValue.value;
+        bRange.value = bValue.value;
+        updateColor();
+      });
+    });
+
+    updateColor();
+  </script>
+</body>
+</html>
